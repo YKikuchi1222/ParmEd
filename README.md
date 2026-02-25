@@ -157,12 +157,12 @@ a research paper, please use the following citation:
 
 https://dx.doi.org/10.1007/s10822-016-9977-1
 
-## 修正内容
-- 変更ファイル: `parmed/tools/actions.py` 
-- 変更箇所: `tiMerge.execute` の `keep_mask` 判定ロジック
-- 既存の `bond/angle/dihedral` 判定に加え、必要時のみ `atm2.cmaps` を走査して、`atm1` が `cmap.atom1..atom5` のいずれかに含まれる場合は `keep_mask[i] = 1` とする処理を追加。
+## Change point
+- file: `parmed/tools/actions.py` 
+- logic: `keep_mask` of `tiMerge.execute`
+- Updated the filtering logic to include a conditional scan of `atm2.cmaps`. If `atm1` is found within the `atom1` to `atom5` range of the CMAP entries, the element is retained by `setting keep_mask[i] = 1`.
 
-### 追加ロジック概要
+### Addition
 ```python
 if (atm1 in atm2.bond_partners or atm1 in atm2.angle_partners or
     atm1 in atm2.dihedral_partners):
@@ -172,23 +172,4 @@ else:
         if atm1 in (cmap.atom1, cmap.atom2, cmap.atom3, cmap.atom4, cmap.atom5):
             keep_mask[i] = 1
             break
-```
-
-
-
-
-
-## 
-We added follow code to action.py 
-```
-```python
-if (atm1 in atm2.bond_partners or atm1 in atm2.angle_partners or
-    atm1 in atm2.dihedral_partners):
-    keep_mask[i] = 1
-else:
-    for cmap in atm2.cmaps:
-        if atm1 in (cmap.atom1, cmap.atom2, cmap.atom3, cmap.atom4, cmap.atom5):
-            keep_mask[i] = 1
-            break
-```
 ```
