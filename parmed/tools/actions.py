@@ -2330,6 +2330,11 @@ class tiMerge(Action):
                         if (atm1 in atm2.bond_partners or atm1 in atm2.angle_partners or
                             atm1 in atm2.dihedral_partners):
                             keep_mask[i] = 1
+                        else:
+                            for cmap in atm2.cmaps:
+                                if atm1 in (cmap.atom1, cmap.atom2, cmap.atom3, cmap.atom4, cmap.atom5):
+                                    keep_mask[i] = 1
+                                    break
 
         nremove = sum(molsel2) - sum(sel2)
 
