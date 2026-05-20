@@ -2375,11 +2375,14 @@ class tiMerge(Action):
                         if (atm1 in atm2.bond_partners or atm1 in atm2.angle_partners or
                             atm1 in atm2.dihedral_partners):
                             keep_mask[i] = 1
-                        else:
-                            for cmap in atm2.cmaps:
-                                if atm1 in (cmap.atom1, cmap.atom2, cmap.atom3, cmap.atom4, cmap.atom5):
-                                    keep_mask[i] = 1
-                                    break
+                            continue
+
+                        # ff19SB CMAP terms can couple common atoms to softcore atoms.
+                        # Keep the common atom in that case (same intent as bond/angle/dihedral checks).
+                        for cmap in atm2.cmaps:
+                            if atm1 in (cmap.atom1, cmap.atom2, cmap.atom3, cmap.atom4, cmap.atom5):
+                                keep_mask[i] = 1
+                                break
 
         nremove = sum(molsel2) - sum(sel2)
 
@@ -4351,4 +4354,3 @@ def _change_c4_atom_type_pair(parm, atom_1, atom_2, c4):
 
     # Now change the ACOEF and BCOEF arrays, assuming pre-combined values
     parm.parm_data[f'LENNARD_JONES_CCOEF'][term_idx] = c4
-

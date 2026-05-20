@@ -28,6 +28,17 @@ your own Python scripts and programs, and a GUI/CLI pair of programs that
 provide a means to quickly perform various modifications to chemical systems for
 rapid prototyping.
 
+## Fork-specific Changes (YKikuchi1222)
+
+This fork includes a local patch for TI/FEP dual-topology workflows used in
+`Hirabayashi_DDXGATA/exp10`.
+
+- File: `parmed/tools/actions.py`
+- Action: `tiMerge`
+- Change: keep common atoms when they are connected to softcore atoms through
+  CMAP terms (in addition to bond/angle/dihedral partner checks), to avoid
+  dropping atoms that should remain in the merged topology.
+
 The API also provides bindings to the [OpenMM](https://openmm.org)
 library, permitting you to carry out full molecular dynamics investigations
 using ParmEd on high-performant hardware, like AMD and NVidia GPUs.

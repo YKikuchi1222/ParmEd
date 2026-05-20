@@ -12,3 +12,12 @@ package.json
 .ipynb_checkpoints
 *.egg-info/
 *.so
+
+# local virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# local Python artifacts
+__pycache__/
